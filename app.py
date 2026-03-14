@@ -13,8 +13,8 @@ uploaded_file = st.file_uploader("じゃらんのクチコミCSV（1年分）を
 
 if uploaded_file is not None:
     try:
-        # 1行目のタイトルをスキップして読み込み
-        df = pd.read_csv(uploaded_file, skiprows=1)
+        # 【修正点】encoding='cp932' を追加して日本語CSVの文字化け・エラーを防止
+        df = pd.read_csv(uploaded_file, skiprows=1, encoding='cp932')
         
         # 投稿日を日付型に変換
         df['投稿日'] = pd.to_datetime(df['投稿日'])
