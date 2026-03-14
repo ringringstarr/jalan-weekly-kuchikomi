@@ -6,7 +6,8 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="じゃらんクチコミ平均点計算", layout="wide")
 
 st.title("じゃらんクチコミ平均点計算")
-st.write("CSVをドロップすると、現在と1週間後の平均点（予測）を算出します。")
+st.write("CSVをドロップすると、現在と1週間後の平均点を算出します。")
+st.write("st.write("CSVをドロップすると、現在と1週間後の平均点を算出します。")
 
 # CSVアップロード
 uploaded_file = st.file_uploader("じゃらんのクチコミCSV（1年分）をドラッグ＆ドロップしてください", type=['csv'])
