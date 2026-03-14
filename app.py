@@ -3,9 +3,9 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # ページ設定
-st.set_page_config(page_title="じゃらんクチコミ点数シミュレーター", layout="wide")
+st.set_page_config(page_title="じゃらんクチコミ平均点計算", layout="wide")
 
-st.title("じゃらんクチコミ点数シミュレーター")
+st.title("じゃらんクチコミ平均点計算")
 st.write("CSVをドロップすると、現在と1週間後の平均点（予測）を算出します。")
 
 # CSVアップロード
@@ -13,19 +13,21 @@ uploaded_file = st.file_uploader("じゃらんのクチコミCSV（1年分）を
 
 if uploaded_file is not None:
     try:
-        # 【修正点】encoding='cp932' を追加して日本語CSVの文字化け・エラーを防止
+        # encoding='cp932' を指定して日本語CSVの文字化け・エラーを防止
         df = pd.read_csv(uploaded_file, skiprows=1, encoding='cp932')
         
         # 投稿日を日付型に変換
         df['投稿日'] = pd.to_datetime(df['投稿日'])
         
-        # 実行日と1週間後の日付文字列を生成
+        # 実行日と1週間後の日付を取得
         today = datetime.now()
+        next_week = today + timedelta(days=7)
+        
+        # 表の行名となる文字列を生成（例: "3/14時点", "3/21時点"）
         today_str = f"{today.month}/{today.day}時点"
-        next_week_str = "1週間後の点数"
+        next_week_str = f"{next_week.month}/{next_week.day}時点"
         
         # 1週間後に「集計対象外」となる境界日（1年前の1週間後）
-        next_week = today + timedelta(days=7)
         cutoff_date = next_week - pd.DateOffset(years=1)
         
         # 1週間後の予測用データ（古い1週間分のクチコミを除外）
