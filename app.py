@@ -25,7 +25,7 @@ if uploaded_file is not None:
         
         # 表の行名となる文字列を生成（例: "3/14時点", "3/21時点"）
         today_str = f"{today.month}/{today.day}時点"
-        next_week_str = f"{next_week.month}/{next_week.day}時点"
+        next_week_str = f"{next_week.month}/{next_week.day}"
         
         # 1週間後に「集計対象外」となる境界日（1年前の1週間後）
         cutoff_date = next_week - pd.DateOffset(years=1)
